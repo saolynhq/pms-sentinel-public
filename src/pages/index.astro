@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import { getManifest, slugify } from "../lib/manifest";
+const manifest = await getManifest();
+const total = (c: { maude: { cumulative: Record<string, number> } }) =>
+  c.maude.cumulative.death + c.maude.cumulative.injury +
+  c.maude.cumulative.malfunction + c.maude.cumulative.other;
+---
+<Base title="PMS Sentinel — Device Performance Cards">
+  <h1 class="text-2xl font-bold">Device Performance Cards</h1>
+  <p class="text-slate-600 mt-1 mb-6">
+    Post-market surveillance summaries for AI medical devices, drawn from public FDA and
+    literature sources. {manifest.count} cards.
+  </p>
+  <ul class="space-y-3">
+    {manifest.cards.map((c) => (
+      <li class="border rounded-lg p-4 bg-white">
+        <a href={`/cards/${slugify(c.title.device_name)}`} class="font-semibold hover:underline">
+          {c.title.device_name}
+        </a>
+        <p class="text-sm text-slate-500 mt-1">
+          {c.title.manufacturer} · {c.title.business_key} · {total(c)} MAUDE events ·
+          {c.card_scope === "product_class_cohort" ? " product-class cohort" : " device-specific"}
+        </p>
+      </li>
+    ))}
+  </ul>
+</Base>

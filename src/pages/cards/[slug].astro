@@ -1,0 +1,115 @@
+---
+import Base from "../../layouts/Base.astro";
+import CoveragePanel from "../../components/CoveragePanel.astro";
+import { getManifest, slugify, type Card } from "../../lib/manifest";
+
+export async function getStaticPaths() {
+  const manifest = await getManifest();
+  return manifest.cards.map((card) => ({
+    params: { slug: slugify(card.title.device_name) },
+    props: { card },
+  }));
+}
+
+const { card } = Astro.props as { card: Card };
+const cum = card.maude.cumulative;
+const roll = card.maude.rolling_12mo;
+const total = cum.death + cum.injury + cum.malfunction + cum.other;
+const ror = card.right_of_reply;
+const rorText = ror.response_text
+  ? ror.response_text
+  : ror.served_on
+    ? "No response received within the window."
+    : "Right-of-reply window not yet served.";
+---
+<Base title={card.title.device_name}>
+  <a href="/" class="text-sm text-slate-500 hover:underline">← All cards</a>
+  <h1 class="text-2xl font-bold mt-2">{card.title.device_name}</h1>
+  {card.title.indication && <p class="text-slate-700 mt-1">{card.title.indication}</p>}
+  <p class="text-sm text-slate-500 mt-1">
+    {card.title.manufacturer} · FDA {card.title.business_key} · product code
+    {" "}{card.title.fda_product_code} · class {card.title.device_class}
+  </p>
+  <p class="text-xs text-slate-400 mt-1">
+    Card {card.card_version} · MAUDE current as of {card.freshness_watermark ?? "—"} ·
+    <a href={card.title.methodology_url} class="underline">Methodology</a>
+  </p>
+
+  {card.narrative && (
+    <p class="mt-4 p-4 bg-white border rounded text-sm leading-relaxed whitespace-pre-line">
+      {card.narrative}
+    </p>
+  )}
+
+  <CoveragePanel rows={card.coverage_panel} />
+
+  <h2 class="text-lg font-semibold mt-8 mb-2">Adverse events on file (FDA MAUDE)</h2>
+  <p class="text-sm text-slate-700">
+    <strong>{total} reports</strong> — {cum.death} death, {cum.injury} injury,
+    {" "}{cum.malfunction} malfunction.
+  </p>
+  <table class="mt-3 w-full text-sm border bg-white">
+    <thead>
+      <tr class="bg-slate-100">
+        <th class="text-left p-2">Period</th>
+        <th class="p-2">Death</th><th class="p-2">Injury</th>
+        <th class="p-2">Malfunction</th><th class="p-2">Other</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-t">
+        <td class="p-2">Rolling 12 months</td>
+        <td class="p-2 text-center">{roll.death}</td><td class="p-2 text-center">{roll.injury}</td>
+        <td class="p-2 text-center">{roll.malfunction}</td><td class="p-2 text-center">{roll.other}</td>
+      </tr>
+      <tr class="border-t">
+        <td class="p-2">Cumulative</td>
+        <td class="p-2 text-center">{cum.death}</td><td class="p-2 text-center">{cum.injury}</td>
+        <td class="p-2 text-center">{cum.malfunction}</td><td class="p-2 text-center">{cum.other}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  {card.maude.top_failure_modes.length > 0 && (
+    <section>
+      <h3 class="font-semibold mt-6 mb-2">Most reported failure modes</h3>
+      <ul class="text-sm list-disc pl-5">
+        {card.maude.top_failure_modes.map((fm) => <li>{fm.label} — {fm.count}</li>)}
+      </ul>
+    </section>
+  )}
+
+  {card.maude.ai_failure_modes.length > 0 && (
+    <section>
+      <h3 class="font-semibold mt-6 mb-2">AI-specific behaviour cited in reports</h3>
+      <ul class="text-sm list-disc pl-5">
+        {card.maude.ai_failure_modes.map((a) => (
+          <li>{a.mode.replaceAll("_", " ")} — cited in {a.count} reports</li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <h2 class="text-lg font-semibold mt-8 mb-2">Peer-reviewed evidence</h2>
+  <p class="text-sm text-slate-700">
+    {card.literature.pubmed_count} PubMed · {card.literature.epmc_count} Europe PMC ·
+    {" "}{card.literature.preprint_count} preprints.
+  </p>
+  {card.literature.highlights.length > 0 && (
+    <ul class="text-sm list-disc pl-5 mt-2">
+      {card.literature.highlights.map((h) => (
+        <li>{h.title} ({h.study_design.replaceAll("_", " ")}, n={h.cohort_size})</li>
+      ))}
+    </ul>
+  )}
+
+  <h2 class="text-lg font-semibold mt-8 mb-2">Manufacturer right of reply</h2>
+  <p class="text-sm text-slate-700">{rorText}</p>
+
+  <p class="text-xs text-slate-400 mt-8 border-t pt-4">
+    Data provided by the U.S. Food and Drug Administration (open.fda.gov). MAUDE reports are
+    passive surveillance and may be incomplete, inaccurate, or unverified; causality cannot be
+    inferred from a single report. AI failure modes are extracted by an LLM from reporter
+    narratives — see the methodology page.
+  </p>
+</Base>

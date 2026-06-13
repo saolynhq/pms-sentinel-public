@@ -1,0 +1,244 @@
+{
+  "generated_at": "2026-06-13T22:30:18.220812+00:00",
+  "count": 2,
+  "cards": [
+    {
+      "_schema_version": "card.v1",
+      "card_scope": "device_specific",
+      "card_version": "v1.0.0-rc1",
+      "generated_at": "2026-06-13T22:30:18.220610Z",
+      "freshness_watermark": "2026-04-28",
+      "title": {
+        "device_name": "HeartFlow Analysis",
+        "indication": "AI-derived coronary CT physiology for diagnosis of coronary artery disease",
+        "manufacturer": "HeartFlow, Inc.",
+        "fda_clearance_date": "2025-07-18",
+        "business_key": "K250902",
+        "fda_product_code": "PJA",
+        "device_class": "II",
+        "methodology_url": "/methodology"
+      },
+      "coverage_panel": [
+        {
+          "source": "FDA MAUDE",
+          "status": "Tier A \u2014 device-specific",
+          "detail": "45 adverse-event reports in scope",
+          "period": "2020-09-01 to 2026-04-15"
+        },
+        {
+          "source": "Peer-reviewed & open-access literature",
+          "status": "Not assessed",
+          "detail": "25 PubMed-indexed, 120 Europe PMC papers",
+          "period": null
+        },
+        {
+          "source": "Preprints (medRxiv via Europe PMC)",
+          "status": "Present",
+          "detail": "16 preprints identified",
+          "period": null
+        },
+        {
+          "source": "EU EUDAMED vigilance",
+          "status": "Not yet available",
+          "detail": "EUDAMED's vigilance module is not yet declared functional.",
+          "period": null
+        },
+        {
+          "source": "NMPA (China)",
+          "status": "Not yet ingested",
+          "detail": "NMPA notices not yet in the v1 catalog.",
+          "period": null
+        }
+      ],
+      "maude": {
+        "rolling_12mo": {
+          "death": 1,
+          "injury": 4,
+          "malfunction": 11,
+          "other": 1
+        },
+        "cumulative": {
+          "death": 3,
+          "injury": 12,
+          "malfunction": 30,
+          "other": 0
+        },
+        "window_start": "2020-09-01",
+        "window_end": "2026-04-15",
+        "top_failure_modes": [
+          {
+            "imdrf_code": "A0902",
+            "label": "Software issue / algorithm output error",
+            "count": 18
+          },
+          {
+            "imdrf_code": "A0307",
+            "label": "Image quality issue",
+            "count": 11
+          },
+          {
+            "imdrf_code": null,
+            "label": "Unclassified / unclear",
+            "count": 9
+          }
+        ],
+        "ai_failure_modes": [
+          {
+            "mode": "false_negative",
+            "count": 6
+          },
+          {
+            "mode": "false_positive",
+            "count": 2
+          }
+        ]
+      },
+      "literature": {
+        "pubmed_count": 25,
+        "epmc_count": 120,
+        "preprint_count": 16,
+        "highlights": [
+          {
+            "title": "PRECISE trial (Douglas et al. 2023, JACC)",
+            "publication_date": "2023-03-01",
+            "study_design": "rct",
+            "cohort_size": 2103,
+            "is_preprint": false,
+            "source_ref": "pmid:36752"
+          },
+          {
+            "title": "ADVANCE registry (Fairbairn et al. 2018, EHJ)",
+            "publication_date": "2018-11-01",
+            "study_design": "real_world_deployment",
+            "cohort_size": 5083,
+            "is_preprint": false,
+            "source_ref": "pmid:30179"
+          }
+        ],
+        "deployment_positive": 18,
+        "deployment_mixed": 4,
+        "deployment_negative": 1
+      },
+      "coverage_transparency": {
+        "maude_events_total": 45,
+        "maude_events_quarantined": 0,
+        "pubmed_papers": 25,
+        "epmc_papers": 120,
+        "preprints": 16,
+        "eudamed_status": "not_yet_available"
+      },
+      "right_of_reply": {
+        "served_on": null,
+        "response_text": null
+      },
+      "narrative": "This card summarises the public post-market record for this device; figures reflect the cited sources only.\n\nAdverse-event failure modes are extracted by an LLM from FDA MAUDE reporter narratives and may be incomplete or inaccurate; causality cannot be inferred from a single report. See the methodology page.",
+      "content_hash": "3e262ad088782f35"
+    },
+    {
+      "_schema_version": "card.v1",
+      "card_scope": "product_class_cohort",
+      "card_version": "v1.0.0-rc1",
+      "generated_at": "2026-06-13T22:30:18.220748Z",
+      "freshness_watermark": null,
+      "title": {
+        "device_name": "Radiology AI products \u2014 FDA class QIH cohort",
+        "indication": null,
+        "manufacturer": "(multiple)",
+        "fda_clearance_date": null,
+        "business_key": "PCOHORT-QIH",
+        "fda_product_code": "QIH",
+        "device_class": "unknown",
+        "methodology_url": "/methodology"
+      },
+      "coverage_panel": [
+        {
+          "source": "FDA MAUDE",
+          "status": "Tier C \u2014 product-class cohort",
+          "detail": "9 adverse-event reports in scope",
+          "period": "2024-01-01 to 2026-03-31"
+        },
+        {
+          "source": "Peer-reviewed & open-access literature",
+          "status": "Not assessed",
+          "detail": "0 PubMed-indexed, 0 Europe PMC papers",
+          "period": null
+        },
+        {
+          "source": "Preprints (medRxiv via Europe PMC)",
+          "status": "Present",
+          "detail": "0 preprints identified",
+          "period": null
+        },
+        {
+          "source": "EU EUDAMED vigilance",
+          "status": "Not yet available",
+          "detail": "EUDAMED's vigilance module is not yet declared functional.",
+          "period": null
+        },
+        {
+          "source": "NMPA (China)",
+          "status": "Not yet ingested",
+          "detail": "NMPA notices not yet in the v1 catalog.",
+          "period": null
+        }
+      ],
+      "maude": {
+        "rolling_12mo": {
+          "death": 0,
+          "injury": 0,
+          "malfunction": 0,
+          "other": 0
+        },
+        "cumulative": {
+          "death": 0,
+          "injury": 2,
+          "malfunction": 7,
+          "other": 0
+        },
+        "window_start": "2024-01-01",
+        "window_end": "2026-03-31",
+        "top_failure_modes": [
+          {
+            "imdrf_code": "A0307",
+            "label": "Image quality issue",
+            "count": 4
+          },
+          {
+            "imdrf_code": null,
+            "label": "Unclassified / unclear",
+            "count": 5
+          }
+        ],
+        "ai_failure_modes": [
+          {
+            "mode": "false_positive",
+            "count": 2
+          }
+        ]
+      },
+      "literature": {
+        "pubmed_count": 0,
+        "epmc_count": 0,
+        "preprint_count": 0,
+        "highlights": [],
+        "deployment_positive": 0,
+        "deployment_mixed": 0,
+        "deployment_negative": 0
+      },
+      "coverage_transparency": {
+        "maude_events_total": 9,
+        "maude_events_quarantined": 0,
+        "pubmed_papers": 0,
+        "epmc_papers": 0,
+        "preprints": 0,
+        "eudamed_status": "not_yet_available"
+      },
+      "right_of_reply": {
+        "served_on": null,
+        "response_text": null
+      },
+      "narrative": "This card summarises the public post-market record for this device; figures reflect the cited sources only.\n\nAdverse-event failure modes are extracted by an LLM from FDA MAUDE reporter narratives and may be incomplete or inaccurate; causality cannot be inferred from a single report. See the methodology page.",
+      "content_hash": "95b1dee85514ac9b"
+    }
+  ]
+}

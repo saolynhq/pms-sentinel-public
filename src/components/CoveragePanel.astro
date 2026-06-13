@@ -1,0 +1,23 @@
+---
+import type { CoverageRow } from "../lib/manifest";
+const { rows } = Astro.props as { rows: CoverageRow[] };
+---
+<h2 class="text-lg font-semibold mt-6 mb-2">Coverage</h2>
+<table class="w-full text-sm border bg-white">
+  <thead>
+    <tr class="bg-slate-100">
+      <th class="text-left p-2">Source</th>
+      <th class="text-left p-2">Status</th>
+      <th class="text-left p-2">What we see</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows.map((r) => (
+      <tr class="border-t align-top">
+        <td class="p-2 font-medium">{r.source}</td>
+        <td class="p-2 whitespace-nowrap">{r.status}</td>
+        <td class="p-2 text-slate-600">{r.detail}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>

@@ -1,0 +1,27 @@
+---
+interface Props { title: string }
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <header class="border-b bg-white">
+      <div class="mx-auto max-w-4xl px-4 py-4 flex items-center justify-between">
+        <a href="/" class="font-semibold">PMS Sentinel</a>
+        <a href="/methodology" class="text-sm text-slate-600 hover:underline">Methodology</a>
+      </div>
+    </header>
+    <main class="mx-auto max-w-4xl px-4 py-8"><slot /></main>
+    <footer class="border-t bg-white mt-12">
+      <div class="mx-auto max-w-4xl px-4 py-6 text-xs text-slate-500">
+        Data provided by the U.S. Food and Drug Administration (open.fda.gov) and peer-reviewed
+        literature. This is a regulatory/quality resource, not clinical advice.
+      </div>
+    </footer>
+  </body>
+</html>

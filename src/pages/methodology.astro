@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="PMS Sentinel — Methodology">
+  <a href="/" class="text-sm text-slate-500 hover:underline">← All cards</a>
+  <h1 class="text-2xl font-bold mt-2 mb-4">Methodology</h1>
+  <div class="prose prose-sm max-w-none space-y-4 text-slate-700">
+    <p>Each device card is a structured post-market surveillance summary for a single cleared
+      device, drawn from public regulatory and adverse-event sources. It is not clinical advice
+      and not a regulatory determination.</p>
+    <h2 class="text-lg font-semibold">Data sources</h2>
+    <p>FDA MAUDE adverse-event reports (device-specific where coverage permits; product-class
+      cohort otherwise), and peer-reviewed and preprint literature from PubMed, Europe PMC,
+      medRxiv, and ClinicalTrials.gov. EU EUDAMED vigilance and NMPA are not yet ingested.</p>
+    <h2 class="text-lg font-semibold">Refresh cadence</h2>
+    <p>MAUDE is pulled weekly (it has a ~4-week publishing lag); literature on a per-device
+      cadence (weekly to quarterly by signal density). Each card shows a "data current as of"
+      watermark.</p>
+    <h2 class="text-lg font-semibold">Coverage transparency</h2>
+    <p>A card covers what the public record covers — no more. MAUDE is passive: under-reporting
+      is well documented and the absence of events is not evidence of safety. Each card states
+      its tier, event counts, and the reporting window.</p>
+    <h2 class="text-lg font-semibold">Parsing methods</h2>
+    <p>Adverse-event narratives are normalised by an LLM into structured fields (severity, IMDRF
+      problem code, AI failure mode) with a confidence score; low-confidence records are
+      quarantined for review. Literature is screened for device relevance, then structured. AI
+      failure-mode tallies reflect what reporters described, not established device defects.</p>
+    <h2 class="text-lg font-semibold">Right of reply and corrections</h2>
+    <p>Before a card is published, the named manufacturer is given a 30-day right-of-reply
+      window. Responses are reproduced on the card; corrections are logged and dated.</p>
+  </div>
+</Base>

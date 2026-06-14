@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { getManifest, slugify } from "../lib/manifest";
+import { getManifest, cardSlug } from "../lib/manifest";
 const manifest = await getManifest();
 const total = (c: { maude: { cumulative: Record<string, number> } }) =>
   c.maude.cumulative.death + c.maude.cumulative.injury +
@@ -15,7 +15,7 @@ const total = (c: { maude: { cumulative: Record<string, number> } }) =>
   <ul class="space-y-3">
     {manifest.cards.map((c) => (
       <li class="border rounded-lg p-4 bg-white">
-        <a href={`/cards/${slugify(c.title.device_name)}`} class="font-semibold hover:underline">
+        <a href={`/cards/${cardSlug(c.title.device_name, c.title.business_key)}`} class="font-semibold hover:underline">
           {c.title.device_name}
         </a>
         <p class="text-sm text-slate-500 mt-1">

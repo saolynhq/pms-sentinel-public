@@ -1,12 +1,12 @@
 ---
 import Base from "../../layouts/Base.astro";
 import CoveragePanel from "../../components/CoveragePanel.astro";
-import { getManifest, slugify, type Card } from "../../lib/manifest";
+import { getManifest, cardSlug, type Card } from "../../lib/manifest";
 
 export async function getStaticPaths() {
   const manifest = await getManifest();
   return manifest.cards.map((card) => ({
-    params: { slug: slugify(card.title.device_name) },
+    params: { slug: cardSlug(card.title.device_name, card.title.business_key) },
     props: { card },
   }));
 }

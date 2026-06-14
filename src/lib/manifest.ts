@@ -41,8 +41,12 @@ export function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
+declare const process: { env: Record<string, string | undefined> };
+
 export async function getManifest(): Promise<Manifest> {
-  const url = import.meta.env.MANIFEST_URL;
+  const url =
+    (typeof process !== "undefined" ? process.env.MANIFEST_URL : undefined) ??
+    (import.meta.env.MANIFEST_URL as string | undefined);
   if (url) {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`manifest fetch failed: ${res.status}`);

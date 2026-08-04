@@ -1,0 +1,10 @@
+# PMS Sentinel is pre-launch. Every response tells crawlers to stay away, on
+# every hostname (custom domain, *.pages.dev alias, and per-deployment hash
+# URLs — each of those is a permanent public copy of whatever was built that
+# day). Pair with public/robots.txt and Cloudflare Access; see README.
+#
+# Remove this block at public launch, not before.
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff

@@ -1,0 +1,9 @@
+# PMS Sentinel is pre-launch and not for public disclosure.
+# This site must not be indexed by any crawler until launch.
+#
+# robots.txt only stops well-behaved crawlers, and it does NOT stop anyone who
+# has the URL. The access control is Cloudflare Access (Zero Trust) on the
+# project — see README "Access control before launch". Do not remove this file
+# until PMS Sentinel is publicly announced.
+User-agent: *
+Disallow: /

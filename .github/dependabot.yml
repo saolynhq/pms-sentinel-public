@@ -29,5 +29,15 @@ updates:
     # only thing standing between us and it.
     # VERIFY this block against current Dependabot docs on first run; if the key
     # is rejected the whole file is ignored, which fails silently.
+    # Lockfile-only: bump the resolved version in the lockfile, never rewrite
+    # the declared range in pyproject.toml / package.json. Without this,
+    # Dependabot "helpfully" widened constraints on first run — proposing
+    # mypy >=1.13 -> >=2.3.0 and ruff >=0.8 -> >=0.16.2, i.e. major-version
+    # jumps to tooling, as six separate PRs each firing two workflows.
+    # Security updates still come through regardless of this setting.
+    # VERIFY: supported for npm and pip; confirm for the `uv` ecosystem.
+    versioning-strategy: "lockfile-only"
+    # A first run against a stale tree should not open twenty PRs.
+    open-pull-requests-limit: 5
     cooldown:
       default-days: 1

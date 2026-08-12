@@ -1,0 +1,30 @@
+name: security
+
+# Calls the org-wide gate in saolynhq/.github. The control set is defined there,
+# not here — see that repo's README for the threat model and posture.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Sunday 20:00 UTC = Monday 06:00 AEST. The weekly run also does the
+    # full-history secret scan, which is too slow for every PR.
+    - cron: '0 20 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    uses: saolynhq/.github/.github/workflows/security.yml@main
+    permissions:
+      contents: read
+    with:
+      node-lockfiles: "package-lock.json"
+      full-history-secret-scan: ${{ github.event_name == 'schedule' }}
+      # Report-only until the phase-3 date. See IMPLEMENTATION.md step 7.
+      enforce-secrets: false
+      enforce-workflows: false
+      enforce-deps: false

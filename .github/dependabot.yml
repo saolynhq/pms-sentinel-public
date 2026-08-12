@@ -1,0 +1,33 @@
+version: 2
+
+updates:
+  # Keeps SHA-pinned actions current. Without this, pinning actions to a commit
+  # SHA (IMPLEMENTATION.md step 3) would freeze them at whatever was current on
+  # pinning day — trading a supply-chain risk for a staleness one.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      npm-minor-patch:
+        update-types: ["minor", "patch"]
+    # Dependency cooldown. This is Dependabot's side of the same control as
+    # .npmrc's min-release-age — without it, Dependabot would happily open a PR
+    # for a version published an hour ago and the .npmrc setting would be the
+    # only thing standing between us and it.
+    # VERIFY this block against current Dependabot docs on first run; if the key
+    # is rejected the whole file is ignored, which fails silently.
+    cooldown:
+      default-days: 1

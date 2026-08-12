@@ -18,6 +18,21 @@ permissions:
 
 jobs:
   security:
+    # zizmor: ignore[unpinned-uses]
+    #
+    # Deliberate, and reviewed. zizmor rates this HIGH because a mutable ref is
+    # exactly what the aquasecurity/trivy-action tag hijack abused — and the
+    # criticism lands: if saolynhq/.github were compromised, @main would
+    # propagate to all five repos' CI on the next run, with their secrets.
+    #
+    # Kept at @main only while phase 1 is in flux. Pinning it costs five
+    # follow-up commits for every change to the shared workflow, which during a
+    # rollout means the control set drifts or stops being maintained. The repo
+    # is private, single-maintainer, and branch-protected.
+    #
+    # PHASE 3 ITEM: pin this to a SHA when the control set has settled, before
+    # enforce-workflows flips to true. Suppressed rather than left noisy so it
+    # cannot mask a genuinely unpinned third-party action.
     uses: saolynhq/.github/.github/workflows/security.yml@main
     permissions:
       contents: read

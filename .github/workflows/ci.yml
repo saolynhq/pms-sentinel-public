@@ -17,6 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          # zizmor[artipacked]: checkout leaves the job token in
+          # .git/config, where an artifact upload or a later step can
+          # exfiltrate it. No step here pushes, so credentials are not
+          # needed after clone.
+          persist-credentials: false
 
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:

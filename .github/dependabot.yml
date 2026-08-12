@@ -14,6 +14,11 @@ updates:
         patterns: ["*"]
     commit-message:
       prefix: "ci"
+    # A compromised action reaches CI with our secrets, so the cooldown matters
+    # here at least as much as it does for application dependencies. It was
+    # missing entirely until zizmor's dependabot-cooldown audit flagged it.
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -40,4 +45,4 @@ updates:
     # A first run against a stale tree should not open twenty PRs.
     open-pull-requests-limit: 5
     cooldown:
-      default-days: 1
+      default-days: 7
